@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pressing-plant"
+version = "0.1.0"
+description = "Songs to stem packs and music video render plans (mocked stems)"
+requires-python = ">=3.9"
+dependencies = ["numpy", "PyYAML"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+press = "press.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["press*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
