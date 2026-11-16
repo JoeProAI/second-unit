@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "second-unit-bench"
+version = "0.1.0"
+description = "VRAM and throughput bench harness for the Second Unit candidate models."
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+
+# torch, torchvision and torchaudio are not listed here on purpose. Install the
+# CUDA build first from the PyTorch index (see docs/BENCH.md), then add extras.
+[project.optional-dependencies]
+test = ["pytest>=7"]
+gpu = ["nvidia-ml-py>=12"]
+shots = [
+    "transnetv2-pytorch>=1.0.5",
+    "einops>=0.7",
+    "omnishotcut @ git+https://github.com/UVA-Computer-Vision-Lab/OmniShotCut.git",
+]
+face = ["insightface>=0.7.3", "onnxruntime-gpu>=1.20", "opencv-python-headless>=4.8"]
+semantics = ["open_clip_torch>=2.24"]
+vlm = ["pillow>=10"]
+vlm-python = ["pillow>=10", "llama-cpp-python>=0.3.16"]
+hands = ["mediapipe>=0.10.14"]
+audio = ["demucs>=4.0.1", "beat-this>=1.0", "faster-whisper>=1.1"]
+madmom = ["cython", "madmom @ git+https://github.com/CPJKU/madmom.git"]
+all = [
+    "second-unit-bench[gpu,shots,face,semantics,vlm,hands,audio]",
+]
+
+[project.scripts]
+second-unit-bench = "bench.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["bench*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

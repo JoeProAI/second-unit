@@ -14,8 +14,18 @@ What it will do:
 
 Early. Nothing here is ready to use yet. Work lands as reviewed pull requests:
 
-- `bench/`: VRAM and throughput harness for the candidate models. No numbers are measured yet.
+- `bench/`: VRAM and throughput harness for the candidate models. No numbers are measured yet. See [docs/BENCH.md](docs/BENCH.md) for the results table and the steps to run it on Windows.
 - `pressing-plant/`: beat grid, stem tools and the NVENC render planner, imported from an earlier prototype.
+
+## Bench quick start
+
+```
+pip install -e ".[test]"
+python -m pytest
+python -m bench run --smoke
+```
+
+The smoke run uses CPU stub models and a tiny generated clip, so it needs no GPU and downloads nothing. The real run needs the CUDA setup in [docs/BENCH.md](docs/BENCH.md).
 
 ## License
 
